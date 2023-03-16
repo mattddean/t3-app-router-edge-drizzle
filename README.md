@@ -20,6 +20,7 @@ This project is not affiliated with create-t3-app.
   - The installed tRPC version is currently locked to the experimental App Router tRPC client in `./src/trpc/@trpc`. They specifically format their react-query query keys in a particular way that changed in later versions of tRPC. If you upgrade tRPC, hydration will stop working.
 - Owned Authentication with Auth.js
   - create-t3-app uses NextAuth, which doesn't support the Edge runtime. This project uses NextAuth's successor, Auth.js, which does. Since Auth.js hasn't built support for Next.js yet, their [SolidStart implementation](https://github.com/nextauthjs/next-auth/tree/OrJDev/main/packages/frameworks-solid-start/src) is used and slightly modified.
+  - [Kysely adapter](https://github.com/nextauthjs/next-auth/pull/5464)
 - Styling with [Tailwind](https://tailwindcss.com/)
   - It's just CSS, so it works just fine in the App Router.
 - React components from [shadcn/ui](https://github.com/shadcn/ui)
