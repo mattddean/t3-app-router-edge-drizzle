@@ -1,0 +1,34 @@
+{
+  "version": "0.2",
+  "ignorePaths": [],
+  "dictionaryDefinitions": [],
+  "dictionaries": [],
+  "words": [
+    "codegen",
+    "middlewares",
+    "paralleldrive"
+  ],
+  "ignoreWords": [
+    "authed",
+    "ciphertext",
+    "clsx",
+    "doesn",
+    "hasn",
+    "kysely",
+    "lucide",
+    "nextauth",
+    "nextjs",
+    "pkce",
+    "planetscale",
+    "shadcn",
+    "signin",
+    "signout",
+    "solidauth",
+    "solidjs",
+    "superjson",
+    "tailwindcss",
+    "tanstack",
+    "trpc"
+  ],
+  "import": []
+}
