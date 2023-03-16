@@ -3,6 +3,8 @@ import { createId } from "@paralleldrive/cuid2";
 import { Kysely, SqliteAdapter } from "kysely";
 import type { Database } from "~/lib/kysely-db";
 
+// https://github.com/nextauthjs/next-auth/pull/5464
+
 type ReturnData<T = never> = Record<string, Date | string | T>;
 
 export function KyselyAdapter(db: Kysely<Database>): Adapter {
