@@ -33,6 +33,6 @@ This project represents the copy-pasting of work and ideas from a lot of really 
 There are a few options that Server Components + tRPC + React Query afford us. The flexibility of these tools allows us to use different strategies for different cases on the same project.
 
 1. Fetch data on the server and render on the server or pass it to client components. [Example.](https://github.com/mattddean/t3-app-router-edge/blob/03cd3c0d16fb08a208279e08d90014e8e4fc8322/src/app/profile/page.tsx#L14)
-1. Fetch data on the server and use it to hydrate react-query's cache on the client. The Posts table on the homepage uses this strategy. Example: [Hydrate on server](https://github.com/mattddean/t3-app-router-edge/blob/c64d8dd8246491b7c4314c764b13d493b616df09/src/app/page.tsx#L19-L39) then [use cached data on client](https://github.com/mattddean/t3-app-router-edge/blob/03cd3c0d16fb08a208279e08d90014e8e4fc8322/src/components/posts-table.tsx#L84-L87).
+1. Fetch data on the server and use it to hydrate react-query's cache on the client. Example: [Fetch and dehydrate data on server](https://github.com/mattddean/t3-app-router-edge/blob/c64d8dd8246491b7c4314c764b13d493b616df09/src/app/page.tsx#L19-L39), then [use cached data from server on client](https://github.com/mattddean/t3-app-router-edge/blob/03cd3c0d16fb08a208279e08d90014e8e4fc8322/src/components/posts-table.tsx#L84-L87).
 1. Fetch data on the client.
 1. Fetch data the server but don't block first byte and stream Server Components to the client using a Suspense boundary. TODO: Example.
