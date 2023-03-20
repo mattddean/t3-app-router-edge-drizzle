@@ -7,8 +7,6 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:gen-migrations": "pnpm drizzle-kit generate:mysql --out ./migrations --schema src/db/schema.ts",
-    "db:migrate": "tsx src/scripts/migrate.ts",
     "db:push": "pnpm drizzle-kit push:mysql"
   },
   "dependencies": {
