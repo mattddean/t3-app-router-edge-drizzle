@@ -5,9 +5,6 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "typescript.tsdk": "./node_modules/typescript/lib",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[prisma]": {
-    "editor.defaultFormatter": "Prisma.prisma"
-  },
   "typescript.suggest.completeFunctionCalls": true,
   "eslint.lintTask.enable": true,
   "typescript.surveys.enabled": false,

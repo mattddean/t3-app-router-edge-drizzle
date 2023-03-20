@@ -1,6 +1,8 @@
+import { eq } from "drizzle-orm/expressions";
 import type { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import type { ReadonlyRequestCookies } from "next/dist/server/app-render";
-import { db } from "~/lib/kysely-db";
+import { db } from "~/db/drizzle-db";
+import { sessions, users } from "../../db/schema";
 
 export interface User {
   id: string;
@@ -20,11 +22,12 @@ export function createGetUser(cookies: RequestCookies | ReadonlyRequestCookies) 
     const sessionToken = newCookies["next-auth.session-token"] ?? newCookies["__Secure-next-auth.session-token"];
     if (!sessionToken) return null;
 
-    const session = await db
-      .selectFrom("Session")
-      .innerJoin("User", "User.id", "Session.userId")
-      .select(["User.email as user_email", "User.name as user_name", "User.id as user_id"])
-      .executeTakeFirst();
+    const rows = await db
+      .select({ user_id: users.id, user_name: users.name, user_email: users.email })
+      .from(sessions)
+      .innerJoin(users, eq(users.id, sessions.userId))
+      .limit(1);
+    const session = rows[0];
     if (!session) return null;
 
     const user: User = {

@@ -1,0 +1,4 @@
+{
+  "schema": "./src/db/schema.ts",
+  "connectionString": "mysql://username:password@region.connect.psdb.cloud:3306/db?ssl={\"rejectUnauthorized\":true}"
+}

@@ -15,13 +15,12 @@ This project is not affiliated with create-t3-app.
 This project represents the copy-pasting of work and ideas from a lot of really smart people. I think it's useful to see them all together in a working prototype.
 
 - Edge runtime for all pages and routes.
-- Type-safe SQL with Kysely (plus Prisma schema management)
+- Type-safe SQL and schema management with drizzle-orm
   - While create-t3-app uses Prisma, Prisma can't run on the Edge runtime.
 - Type-safe API with tRPC
   - App Router setup is copied from [here](https://github.com/trpc/next-13).
   - The installed tRPC version is currently locked to the experimental App Router tRPC client in `./src/trpc/@trpc`, which formats the react-query query keys in a specific way that changed in later versions of tRPC. If you upgrade tRPC, hydration will stop working.
 - Owned Authentication with Auth.js
-  - Kysely adapter is copied from [here](https://github.com/nextauthjs/next-auth/pull/5464).
   - create-t3-app uses NextAuth, which doesn't support the Edge runtime. This project uses NextAuth's successor, Auth.js, which does. Since Auth.js hasn't built support for Next.js yet, their [SolidStart implementation](https://github.com/nextauthjs/next-auth/tree/36ad964cf9aec4561dd4850c0f42b7889aa9a7db/packages/frameworks-solid-start/src) is copied and slightly modified.
 - Styling with [Tailwind](https://tailwindcss.com/)
   - It's just CSS, so it works just fine in the App Router.

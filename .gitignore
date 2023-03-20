@@ -36,5 +36,4 @@ yarn-error.log*
 
 .env
 
-/prisma/db.sqlite
-/prisma/db.splite-journal
+/drizzle.config.json

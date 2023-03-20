@@ -1,11 +1,13 @@
 /**
- *
  * This is an example router, you can delete this file and then update `../pages/api/trpc/[trpc].tsx`
  */
 import { createId } from "@paralleldrive/cuid2";
 import { TRPCError } from "@trpc/server";
+import { sql } from "drizzle-orm";
+import { eq, gte } from "drizzle-orm/expressions";
 import { z } from "zod";
-import { db } from "~/lib/kysely-db";
+import { db } from "~/db/drizzle-db";
+import { posts } from "~/db/schema";
 import { privateProcedure, publicProcedure, router } from "../trpc";
 
 export const exampleRouter = router({
@@ -17,33 +19,25 @@ export const exampleRouter = router({
       }),
     )
     .mutation(async ({ ctx, input }) => {
-      // TODO: use a db transaction
-
       const userEmail = ctx.user.email;
       if (!userEmail) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
 
-      await db
-        .insertInto("Post")
-        .values([
-          {
-            id: createId(),
-            user_id: ctx.user.id,
-            slug: createId(),
-            title: input.title,
-            text: input.text,
-            created_at: new Date(),
-            updated_at: new Date(),
-          },
-        ])
-        .executeTakeFirstOrThrow();
+      await db.insert(posts).values({
+        id: createId(),
+        user_id: ctx.user.id,
+        slug: createId(),
+        title: input.title,
+        text: input.text,
+      });
     }),
 
   getPost: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
-    const file = await db
-      .selectFrom("Post")
-      .where("Post.slug", "=", input.slug)
-      .select(["Post.title", "Post.text"])
-      .executeTakeFirst();
+    const files = await db
+      .select({ title: posts.title, text: posts.text })
+      .from(posts)
+      .where(eq(posts.slug, input.slug))
+      .limit(1);
+    const file = files[0];
 
     // NOT_FOUND is fine if the file exists but the user doesn't have access to it. This prevents revealing that the file exists.
     if (!file) throw new TRPCError({ code: "NOT_FOUND" });
@@ -64,22 +58,23 @@ export const exampleRouter = router({
     .query(async ({ input }) => {
       const limit = input.limit ?? 50;
 
-      const totalCountQuery = db.selectFrom("Post").select([db.fn.count("Post.id").as("file_count")]);
+      const countRows = await db.select({ files_count: sql<number>`count(${posts.id})`.as("files_count") }).from(posts);
+      const totalCount = countRows[0]?.files_count;
+      if (totalCount === undefined) throw new Error("Failed to query total file count");
 
-      const totalCountResult = await totalCountQuery.execute();
-      const totalCount = totalCountResult[0].file_count;
-
-      let itemsQuery = db.selectFrom("Post").select(["Post.created_at", "Post.slug", "Post.title"]).limit(input.limit);
-
+      let itemsQuery = db
+        .select({ created_at: posts.created_at, slug: posts.slug, title: posts.title })
+        .from(posts)
+        .limit(input.limit);
       const cursor = input.cursor;
       if (cursor) {
-        itemsQuery = itemsQuery.where("Post.created_at", "<=", cursor);
+        itemsQuery = itemsQuery.where(gte(posts.created_at, cursor));
       }
-
       const items = await itemsQuery.execute();
 
       let nextCursor: typeof input.cursor | undefined = undefined;
       if (items.length > limit) {
+        // TODO: is this a safe assertion?
         const nextItem = items.pop() as NonNullable<(typeof items)[number]>;
         nextCursor = nextItem.created_at;
       }
