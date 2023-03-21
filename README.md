@@ -52,7 +52,7 @@ There are a few options that Server Components + tRPC + React Query afford us. T
 
    - drizzle.config.json configures drizzle-kit, which is used to push your schema to the database. Drizzle also supports migrations, if you prefer.
 
-3. Push your schema changes to a fresh database Don't use this command on an existing database that you care about. It's destructive (and in beta).
+3. Push your schema changes to a new planetscale database. Don't use this command on an existing database that you care about. It's destructive (and in beta).
 
    ```sh
    pnpm db:push
