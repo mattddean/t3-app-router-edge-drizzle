@@ -1,5 +1,5 @@
 {
-  "name": "t3-app-router-edge",
+  "name": "t3-app-router-edge-drizzle",
   "version": "0.1.0",
   "private": true,
   "scripts": {
