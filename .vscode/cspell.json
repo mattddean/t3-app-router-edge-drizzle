@@ -15,6 +15,7 @@
     "datetime",
     "doesn",
     "hasn",
+    "kysely",
     "lucide",
     "nextauth",
     "nextjs",

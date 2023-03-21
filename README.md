@@ -10,6 +10,8 @@ If you encounter an error (you will), please create an Issue so that we can fix 
 
 This project is not affiliated with create-t3-app.
 
+> Check out the kysely version [here](https://github.com/mattddean/t3-app-router-edge)!
+
 ## Features
 
 This project represents the copy-pasting of work and ideas from a lot of really smart people. I think it's useful to see them all together in a working prototype.
