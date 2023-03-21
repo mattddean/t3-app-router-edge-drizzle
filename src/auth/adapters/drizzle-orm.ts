@@ -47,11 +47,8 @@ export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
   return {
     async createUser(data) {
       const userData = coerceInputData(data, "emailVerified");
-      const now = new Date();
       await db.insert(users).values({
         id: createId(),
-        created_at: now,
-        updated_at: now,
         email: userData.email,
         emailVerified: userData.emailVerified,
         name: userData.name,
@@ -65,14 +62,12 @@ export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
     async getUser(id) {
       const rows = await db.select().from(users).where(eq(users.id, id)).limit(1);
       const row = rows[0];
-      if (!row) throw new Error("User not found");
-      return row;
+      return row ?? null;
     },
     async getUserByEmail(email) {
       const rows = await db.select().from(users).where(eq(users.email, email)).limit(1);
       const row = rows[0];
-      if (!row) throw new Error("User not found");
-      return row;
+      return row ?? null;
     },
     async getUserByAccount({ providerAccountId, provider }) {
       const rows = await db
@@ -82,8 +77,8 @@ export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
         .where(and(eq(accounts.providerAccountId, providerAccountId), eq(accounts.provider, provider)))
         .limit(1);
       const row = rows[0];
-      if (!row) throw new Error("User not found");
-      return row.users;
+      if (!row?.users) return null;
+      return coerceReturnData(row.users, "emailVerified");
     },
     async updateUser({ id, ...user }) {
       if (!id) throw new Error("User not found");
