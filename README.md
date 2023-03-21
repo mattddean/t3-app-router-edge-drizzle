@@ -37,3 +37,29 @@ There are a few options that Server Components + tRPC + React Query afford us. T
 1. Fetch data on the server and use it to hydrate react-query's cache on the client. Example: [Fetch and dehydrate data on server](https://github.com/mattddean/t3-app-router-edge/blob/c64d8dd8246491b7c4314c764b13d493b616df09/src/app/page.tsx#L19-L39), then [use cached data from server on client](https://github.com/mattddean/t3-app-router-edge/blob/03cd3c0d16fb08a208279e08d90014e8e4fc8322/src/components/posts-table.tsx#L84-L87).
 1. Fetch data on the client.
 1. Fetch data the server but don't block first byte and stream Server Components to the client using a Suspense boundary. TODO: Example.
+
+## Getting Started
+
+1. Run some commands
+
+   ```sh
+   pnpm i
+   cp .env.example .env
+   cp drizzle.config.example.json drizzle.config.json
+   ```
+
+2. Fill in .env and drizzle.config.json
+
+   - drizzle.config.json configures drizzle-kit, which is used to push your schema to the database. Drizzle also supports migrations, if you prefer.
+
+3. Push your schema changes to a fresh database Don't use this command on an existing database that you care about. It's destructive (and in beta).
+
+   ```sh
+   pnpm db:push
+   ```
+
+4. Start the Next.js dev server
+
+   ```sh
+   pnpm dev
+   ```
