@@ -4,49 +4,9 @@ import { and, eq } from "drizzle-orm/expressions";
 import { PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless";
 import { accounts, sessions, users, verificationTokens } from "../../db/schema";
 
-type ReturnData<T = never> = Record<string, Date | string | T>;
-
 export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
-  // only supporting mysql on planetscale for now, so we hardcode these values
-  // const adapter = db.getExecutor().adapter;
-  // const supportsReturning = adapter.supportsReturning;
-  const supportsReturning = false;
-  // const storeDatesAsISOStrings = adapter instanceof SqliteAdapter;
-  const storeDatesAsISOStrings = false;
-
-  /** Helper function to return the passed in object and its specified prop
-   * as an ISO string if SQLite is being used.
-   **/
-  function coerceInputData<T extends Partial<Record<K, Date | null>>, K extends keyof T>(data: T, key: K) {
-    const value = data[key];
-    return {
-      ...data,
-      [key]: value && storeDatesAsISOStrings ? value.toISOString() : value,
-    };
-  }
-
-  /**
-   * Helper function to return the passed in object and its specified prop as a date.
-   * Necessary because SQLite has no date type so we store dates as ISO strings.
-   **/
-  function coerceReturnData<T extends Partial<ReturnData>, K extends keyof T>(
-    data: T,
-    key: K,
-  ): Omit<T, K> & Record<K, Date>;
-  function coerceReturnData<T extends Partial<ReturnData<null>>, K extends keyof T>(
-    data: T,
-    key: K,
-  ): Omit<T, K> & Record<K, Date | null>;
-  function coerceReturnData<T extends Partial<ReturnData<null>>, K extends keyof T>(data: T, key: K) {
-    const value = data[key];
-    return Object.assign(data, {
-      [key]: value && typeof value === "string" ? new Date(value) : value,
-    });
-  }
-
   return {
-    async createUser(data) {
-      const userData = coerceInputData(data, "emailVerified");
+    async createUser(userData) {
       await db.insert(users).values({
         id: createId(),
         email: userData.email,
@@ -77,17 +37,15 @@ export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
         .where(and(eq(accounts.providerAccountId, providerAccountId), eq(accounts.provider, provider)))
         .limit(1);
       const row = rows[0];
-      if (!row?.users) return null;
-      return coerceReturnData(row.users, "emailVerified");
+      return row?.users ?? null;
     },
-    async updateUser({ id, ...user }) {
+    async updateUser({ id, ...userData }) {
       if (!id) throw new Error("User not found");
-      const userData = coerceInputData(user, "emailVerified");
       await db.update(users).set(userData).where(eq(users.id, id));
       const rows = await db.select().from(users).where(eq(users.id, id)).limit(1);
       const row = rows[0];
       if (!row) throw new Error("User not found");
-      return coerceReturnData(row, "emailVerified");
+      return row;
     },
     async deleteUser(userId) {
       await db.delete(users).where(eq(users.id, userId));
@@ -115,17 +73,16 @@ export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
         .where(and(eq(accounts.providerAccountId, providerAccountId), eq(accounts.provider, provider)));
     },
     async createSession(data) {
-      const sessionData = coerceInputData(data, "expires");
       await db.insert(sessions).values({
         id: createId(),
         expires: data.expires,
         sessionToken: data.sessionToken,
         userId: data.userId,
       });
-      const rows = await db.select().from(sessions).where(eq(sessions.sessionToken, sessionData.sessionToken)).limit(1);
+      const rows = await db.select().from(sessions).where(eq(sessions.sessionToken, data.sessionToken)).limit(1);
       const row = rows[0];
       if (!row) throw new Error("User not found");
-      return coerceReturnData(row, "expires");
+      return row;
     },
     async getSessionAndUser(sessionToken) {
       const rows = await db
@@ -146,26 +103,26 @@ export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
       if (!row) return null;
       const { user, session } = row;
       return {
-        user: coerceReturnData({ ...user }, "emailVerified"),
-        session: coerceReturnData(
-          { id: session.id, userId: session.userId, sessionToken: session.sessionToken, expires: session.expires },
-          "expires",
-        ),
+        user,
+        session: {
+          id: session.id,
+          userId: session.userId,
+          sessionToken: session.sessionToken,
+          expires: session.expires,
+        },
       };
     },
     async updateSession(session) {
-      const sessionData = coerceInputData(session, "expires");
-      await db.update(sessions).set(sessionData).where(eq(sessions.sessionToken, session.sessionToken));
-      const rows = await db.select().from(sessions).where(eq(sessions.sessionToken, sessionData.sessionToken)).limit(1);
+      await db.update(sessions).set(session).where(eq(sessions.sessionToken, session.sessionToken));
+      const rows = await db.select().from(sessions).where(eq(sessions.sessionToken, session.sessionToken)).limit(1);
       const row = rows[0];
-      if (!row) throw new Error("Session not found");
-      return coerceReturnData(row, "expires");
+      if (!row) throw new Error("Coding bug: updated session not found");
+      return row;
     },
     async deleteSession(sessionToken) {
       await db.delete(sessions).where(eq(sessions.sessionToken, sessionToken));
     },
     async createVerificationToken(verificationToken) {
-      const verificationTokenData = coerceInputData(verificationToken, "expires");
       await db.insert(verificationTokens).values({
         expires: verificationToken.expires,
         identifier: verificationToken.identifier,
@@ -174,23 +131,23 @@ export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
       const rows = await db
         .select()
         .from(verificationTokens)
-        .where(eq(verificationTokens.token, verificationTokenData.token))
+        .where(eq(verificationTokens.token, verificationToken.token))
         .limit(1);
       const row = rows[0];
-      if (!row) throw new Error("Verification token not found");
-      return coerceReturnData(row, "expires");
+      if (!row) throw new Error("Coding bug: inserted verification token not found");
+      return row;
     },
     async useVerificationToken({ identifier, token }) {
       // First get the token while it still exists. TODO: need to add identifier to where clause?
       const rows = await db.select().from(verificationTokens).where(eq(verificationTokens.token, token)).limit(1);
       const row = rows[0];
+      if (!row) return null;
       // Then delete it.
       await db
         .delete(verificationTokens)
         .where(and(eq(verificationTokens.token, token), eq(verificationTokens.identifier, identifier)));
       // Then return it.
-      if (!row) return null;
-      return coerceReturnData(row, "expires");
+      return row;
     },
   };
 }
