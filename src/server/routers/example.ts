@@ -6,7 +6,7 @@ import { TRPCError } from "@trpc/server";
 import { sql } from "drizzle-orm";
 import { eq, gte } from "drizzle-orm/expressions";
 import { z } from "zod";
-import { db } from "~/db/drizzle-db";
+import { getDb } from "~/db/drizzle-db";
 import { posts } from "~/db/schema";
 import { privateProcedure, publicProcedure, router } from "../trpc";
 
@@ -22,7 +22,7 @@ export const exampleRouter = router({
       const userEmail = ctx.user.email;
       if (!userEmail) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
 
-      await db.insert(posts).values({
+      await getDb().insert(posts).values({
         id: createId(),
         user_id: ctx.user.id,
         slug: createId(),
@@ -32,7 +32,7 @@ export const exampleRouter = router({
     }),
 
   getPost: publicProcedure.input(z.object({ slug: z.string() })).query(async ({ input }) => {
-    const files = await db
+    const files = await getDb()
       .select({ title: posts.title, text: posts.text })
       .from(posts)
       .where(eq(posts.slug, input.slug))
@@ -58,11 +58,13 @@ export const exampleRouter = router({
     .query(async ({ input }) => {
       const limit = input.limit ?? 50;
 
-      const countRows = await db.select({ files_count: sql<number>`count(${posts.id})`.as("files_count") }).from(posts);
+      const countRows = await getDb()
+        .select({ files_count: sql<number>`count(${posts.id})`.as("files_count") })
+        .from(posts);
       const totalCount = countRows[0]?.files_count;
       if (totalCount === undefined) throw new Error("Failed to query total file count");
 
-      let itemsQuery = db
+      let itemsQuery = getDb()
         .select({ created_at: posts.created_at, slug: posts.slug, title: posts.title })
         .from(posts)
         .limit(input.limit);

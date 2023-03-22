@@ -1,11 +1,19 @@
 import { connect } from "@planetscale/database";
-import { drizzle } from "drizzle-orm/planetscale-serverless";
+import { drizzle, PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless";
 
-// Create the connection.
-const connection = connect({
-  host: process.env.DB_HOST,
-  username: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-});
+/** Module scoped so that it can be reused among the connections */
+let db: PlanetScaleDatabase;
 
-export const db = drizzle(connection);
+/** Getter function to avoid surpassing 200ms Cloudflare Worker function setup limit */
+export const getDb = () => {
+  if (!db) {
+    const connection = connect({
+      host: process.env.DB_HOST,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+    });
+    db = drizzle(connection);
+  }
+
+  return db;
+};
