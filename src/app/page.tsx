@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { PostsTable } from "~/components/posts-table";
 import SignInButtons from "~/components/sign-in-options";
-import { rsc } from "~/shared/server-rsc/trpc";
+import { createRsc } from "~/shared/server-rsc/trpc";
 import { HydrateClient } from "~/trpc/client/hydrate-client";
 
 export const runtime = "edge";
@@ -19,11 +19,11 @@ const Home: FC = async () => {
   // Fetch the first page of data that PostsTable will look for so that it
   // can be dehydrated, passed to the client, and instantly retrieved.
   const [user] = await Promise.all([
-    rsc.whoami.fetch(),
-    rsc.example.getInfinitePosts.fetchInfinite({ limit: initialPageSize }),
+    createRsc().whoami.fetch(),
+    createRsc().example.getInfinitePosts.fetchInfinite({ limit: initialPageSize }),
   ]);
 
-  const dehydratedState = await rsc.dehydrate();
+  const dehydratedState = await createRsc().dehydrate();
   return (
     <>
       <div className="h-12" />

@@ -8,7 +8,7 @@ import { MainNav } from "~/components/main-nav/main-nav";
 import { MobileNav } from "~/components/mobile-nav";
 import { ThemeProvider } from "~/components/theme-provider";
 import { cn } from "~/components/ui/lib/utils";
-import { rsc } from "~/shared/server-rsc/trpc";
+import { createRsc } from "~/shared/server-rsc/trpc";
 import { ClientProvider } from "~/trpc/client/trpc-client";
 import { MainDropdownMenu } from "../components/main-dropdown-menu";
 
@@ -27,7 +27,7 @@ export const metadata = {
 };
 
 export default async function RootLayout(props: PropsWithChildren) {
-  const user = await rsc.whoami.fetch();
+  const user = await createRsc().whoami.fetch();
 
   const avatarFallbackText = (() => {
     const userName = user?.name;

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import SignInButtons from "~/components/sign-in-options";
-import { rsc } from "../../shared/server-rsc/trpc";
+import { createRsc } from "../../shared/server-rsc/trpc";
 
 export const runtime = "edge";
 
@@ -11,7 +11,7 @@ export const metadata = {
 
 /* @ts-expect-error Async Server Component */
 const Home: NextPage = async () => {
-  const user = await rsc.whoami.fetch();
+  const user = await createRsc().whoami.fetch();
 
   return (
     <>

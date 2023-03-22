@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm/expressions";
 import type { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import type { ReadonlyRequestCookies } from "next/dist/server/app-render";
-import { db } from "~/db/drizzle-db";
+import { getDb } from "~/db/drizzle-db";
 import { sessions, users } from "../../db/schema";
 
 export interface User {
@@ -22,7 +22,7 @@ export function createGetUser(cookies: RequestCookies | ReadonlyRequestCookies) 
     const sessionToken = newCookies["next-auth.session-token"] ?? newCookies["__Secure-next-auth.session-token"];
     if (!sessionToken) return null;
 
-    const rows = await db
+    const rows = await getDb()
       .select({ user_id: users.id, user_name: users.name, user_email: users.email })
       .from(sessions)
       .innerJoin(users, eq(users.id, sessions.userId))

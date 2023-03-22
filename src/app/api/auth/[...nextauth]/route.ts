@@ -1,11 +1,11 @@
 import { NextRequest } from "next/server";
-import { authConfig } from "~/auth/options";
+import { createAuthConfig } from "~/auth/options";
 import { SolidAuthHandler } from "~/auth/server";
 
 export const runtime = "edge";
 
 async function handler(request: NextRequest) {
-  const { prefix = "/api/auth", ...authOptions } = authConfig;
+  const { prefix = "/api/auth", ...authOptions } = createAuthConfig();
 
   authOptions.secret ??= process.env.AUTH_SECRET;
   authOptions.trustHost ??= !!(

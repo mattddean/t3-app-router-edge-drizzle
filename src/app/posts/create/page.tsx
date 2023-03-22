@@ -1,6 +1,6 @@
 import { FC } from "react";
 import SignInButtons from "~/components/sign-in-options";
-import { rsc } from "~/shared/server-rsc/trpc";
+import { createRsc } from "~/shared/server-rsc/trpc";
 import CreatePostForm from "./create-post-form";
 
 export const runtime = "edge";
@@ -12,7 +12,7 @@ export const metadata = {
 
 /* @ts-expect-error Async Server Component */
 const CreatePost: FC = async () => {
-  const user = await rsc.whoami.fetch();
+  const user = await createRsc().whoami.fetch();
 
   return (
     <>
