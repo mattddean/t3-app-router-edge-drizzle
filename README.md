@@ -6,7 +6,7 @@ This is meant to be a place of hacking and learning. We're still learning how to
 
 If you encounter an error (you will), please create an Issue so that we can fix bugs and learn together.
 
-**This is not intended for production.** For a production-ready full-stack application, use much more most stable [create-t3-app](https://github.com/t3-oss/create-t3-app).
+**This is not intended for production.** For a production-ready full-stack application, use the much more stable [create-t3-app](https://github.com/t3-oss/create-t3-app).
 
 This project is not affiliated with create-t3-app.
 
