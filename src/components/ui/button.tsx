@@ -1,6 +1,6 @@
 "use client";
 
-import { cva, VariantProps } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority-ts5-fix";
 import * as React from "react";
 import { cn } from "./lib/utils";
 

@@ -1,10 +1,10 @@
 import type { Adapter } from "@auth/core/adapters";
 import { createId } from "@paralleldrive/cuid2";
 import { and, eq } from "drizzle-orm/expressions";
-import { PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless";
+import type { PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless";
 import { accounts, sessions, users, verificationTokens } from "../../db/schema";
 
-export function DrizzleAdapter(db: PlanetScaleDatabase): Adapter {
+export function createDrizzleAdapter(db: PlanetScaleDatabase): Adapter {
   return {
     async createUser(userData) {
       await db.insert(users).values({

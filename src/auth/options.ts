@@ -1,12 +1,12 @@
 import GithubProvider from "@auth/core/providers/github";
 import GoogleProvider from "@auth/core/providers/google";
 import { db } from "~/db/drizzle-db";
-import { DrizzleAdapter } from "./adapters/drizzle-orm";
+import { createDrizzleAdapter } from "./adapters/drizzle-orm";
 import { SolidAuthConfig } from "./server";
 
 export const authConfig: SolidAuthConfig = {
   // Configure one or more authentication providers
-  adapter: DrizzleAdapter(db),
+  adapter: createDrizzleAdapter(db),
   providers: [
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore growing pains
