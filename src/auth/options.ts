@@ -2,7 +2,7 @@ import GithubProvider from "@auth/core/providers/github";
 import GoogleProvider from "@auth/core/providers/google";
 import { db } from "~/db/drizzle-db";
 import { createDrizzleAdapter } from "./adapters/drizzle-orm";
-import { SolidAuthConfig } from "./server";
+import { type SolidAuthConfig } from "./server";
 
 export const authConfig: SolidAuthConfig = {
   // Configure one or more authentication providers

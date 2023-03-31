@@ -5,7 +5,7 @@ import { rsc } from "~/shared/server-rsc/trpc";
 import { HydrateClient } from "~/trpc/client/hydrate-client";
 
 export const runtime = "edge";
-
+export const revalidate = 0;
 export const metadata = {
   title: "Home",
   description: "Home",

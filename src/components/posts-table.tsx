@@ -2,14 +2,14 @@
 
 import { dehydrate, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  ColumnDef,
   flexRender,
   getCoreRowModel,
-  OnChangeFn,
-  PaginationState,
   useReactTable,
+  type ColumnDef,
+  type OnChangeFn,
+  type PaginationState,
 } from "@tanstack/react-table";
-import { inferRouterOutputs } from "@trpc/server";
+import type { inferRouterOutputs } from "@trpc/server";
 import { format } from "date-fns";
 import Link from "next/link";
 import { useMemo, useState, type FC } from "react";
@@ -29,8 +29,10 @@ interface Row {
   slug: string;
 }
 
+/** async to show how to use async data in table */
 const convertDataToRow = async (
   item: inferRouterOutputs<AppRouter>["example"]["getInfinitePosts"]["items"][number],
+  // eslint-disable-next-line @typescript-eslint/require-await
 ) => {
   const row: Row = {
     title: item.title,

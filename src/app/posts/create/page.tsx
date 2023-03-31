@@ -1,13 +1,13 @@
-import { FC } from "react";
+import type { FC } from "react";
 import SignInButtons from "~/components/sign-in-options";
 import { rsc } from "~/shared/server-rsc/trpc";
 import CreatePostForm from "./create-post-form";
 
 export const runtime = "edge";
-
+export const revalidate = 0;
 export const metadata = {
-  title: "Home",
-  description: "Home",
+  title: "Create Post",
+  description: "Create a new post.",
 };
 
 /* @ts-expect-error Async Server Component */

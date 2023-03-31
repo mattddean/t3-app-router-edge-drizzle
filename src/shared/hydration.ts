@@ -3,7 +3,7 @@
  */
 import { useMemo } from "react";
 import superjson from "superjson";
-import { SuperJSONResult } from "superjson/dist/types";
+import type { SuperJSONResult } from "superjson/dist/types";
 
 const symbol = Symbol("__RSC_DATA__");
 
@@ -14,7 +14,7 @@ export function serialize<T>(obj: T): SerializedResult<T> {
 }
 
 export function deserialize<T>(obj: SerializedResult<T>): T {
-  return superjson.deserialize(obj) as T;
+  return superjson.deserialize(obj);
 }
 
 export function useDeserialized<T>(obj: SerializedResult<T>): T {

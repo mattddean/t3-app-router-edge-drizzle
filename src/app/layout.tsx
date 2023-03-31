@@ -2,7 +2,7 @@ import "./globals.css";
 
 import { Inter as FontSans } from "next/font/google";
 import Link from "next/link";
-import { PropsWithChildren } from "react";
+import { type PropsWithChildren } from "react";
 import { LogoIcon } from "~/components/icons";
 import { MainNav } from "~/components/main-nav/main-nav";
 import { MobileNav } from "~/components/mobile-nav";

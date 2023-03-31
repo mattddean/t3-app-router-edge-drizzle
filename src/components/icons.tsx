@@ -5,12 +5,12 @@ import {
   ChevronRight,
   Loader2,
   LogOut,
-  LucideProps,
   User,
   X,
   type Icon as LucideIcon,
+  type LucideProps,
 } from "lucide-react";
-import { FC } from "react";
+import { type FC } from "react";
 
 export type Icon = LucideIcon;
 

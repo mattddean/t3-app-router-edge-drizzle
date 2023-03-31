@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FC, forwardRef } from "react";
+import { forwardRef, type FC } from "react";
 import { LogoIcon } from "~/components/icons";
 import { cn } from "~/components/ui/lib/utils";
 import {

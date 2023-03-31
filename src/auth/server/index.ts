@@ -1,8 +1,8 @@
 /** https://github.com/nextauthjs/next-auth/blob/04791cd57478b64d0ebdfc8fe25779e2f89e2070/packages/frameworks-solid-start/src/index.ts#L1 */
 
 import { Auth } from "@auth/core";
-import type { AuthAction, AuthConfig, Session } from "@auth/core/types";
-import { serialize } from "cookie";
+import type { AuthAction, AuthConfig } from "@auth/core/types";
+import { serialize, type CookieSerializeOptions } from "cookie";
 import { parseString, splitCookiesString, type Cookie } from "set-cookie-parser";
 
 export interface SolidAuthConfig extends AuthConfig {
@@ -56,24 +56,11 @@ export async function SolidAuthHandler(request: Request, prefix: string, authOpt
   if (["callback", "signin", "signout"].includes(action)) {
     const parsedCookie = getSetCookieCallback(res.clone().headers.get("Set-Cookie"));
     if (parsedCookie) {
-      res.headers.set("Set-Cookie", serialize(parsedCookie.name, parsedCookie.value, parsedCookie as any));
+      res.headers.set(
+        "Set-Cookie",
+        serialize(parsedCookie.name, parsedCookie.value, parsedCookie as CookieSerializeOptions),
+      );
     }
   }
   return res;
-}
-
-export async function getSession(req: Request, options: AuthConfig): Promise<Session | null> {
-  options.secret ??= process.env.AUTH_SECRET;
-  options.trustHost ??= true;
-
-  const url = new URL("/api/auth/session", req.url);
-  const response = await Auth(new Request(url, { headers: req.headers }), options);
-
-  const { status = 200 } = response;
-
-  const data = await response.json();
-
-  if (!data || !Object.keys(data).length) return null;
-  if (status === 200) return data;
-  throw new Error(data.message);
 }

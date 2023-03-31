@@ -29,7 +29,8 @@
     "superjson",
     "tailwindcss",
     "tanstack",
-    "trpc"
+    "trpc",
+    "unsub"
   ],
   "import": []
 }

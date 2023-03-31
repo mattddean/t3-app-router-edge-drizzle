@@ -7,7 +7,7 @@ import type { GetUser, User } from "~/shared/server-rsc/get-user";
  * Inner function for `createContext` where we create the context.
  * This is useful for testing when we don't want to mock Next.js' request/response
  */
-export async function createContextInner(opts: { user: User | null; rsc: boolean }) {
+export function createContextInner(opts: { user: User | null; rsc: boolean }) {
   return {
     user: opts.user,
   };

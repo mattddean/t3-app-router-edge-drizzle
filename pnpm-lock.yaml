@@ -44,7 +44,7 @@ specifiers:
   dotenv: ^16.0.3
   dotenv-cli: ^6.0.0
   drizzle-kit: 0.17.1-5df459e
-  drizzle-orm: 0.23.2
+  drizzle-orm: 0.23.2-ec4bb7f
   eslint: 8.37.0
   eslint-config-next: 12.3.1
   eslint-config-prettier: ^8.7.0
@@ -95,7 +95,7 @@ dependencies:
   clsx: 1.2.1
   cookie: 0.5.0
   date-fns: 2.29.3
-  drizzle-orm: 0.23.2_yjazpptyy5hkedviejakk766iq
+  drizzle-orm: 0.23.2-ec4bb7f_yjazpptyy5hkedviejakk766iq
   lucide-react: 0.109.0_react@18.2.0
   next: 13.2.4_biqbaboplfbrettd7655fr4n2y
   next-themes: 0.2.1_ld2jel3hspngo3u5lti2kgl2sq
@@ -1756,8 +1756,8 @@ packages:
       - supports-color
     dev: true
 
-  /drizzle-orm/0.23.2_yjazpptyy5hkedviejakk766iq:
-    resolution: {integrity: sha512-GSOhOc+gGSMsf3eyBzL1Yb0g0M3pOurWmFI1lVhOrmMQCVuA/smJgYSy4UeTzBV521+J+emiFaSKSomEmc+fog==}
+  /drizzle-orm/0.23.2-ec4bb7f_yjazpptyy5hkedviejakk766iq:
+    resolution: {integrity: sha512-jsrunjHm9olF/hKZIJse9GLJpG2f3HHveyvEVrZMJtmLEe9YGOnCM78HDLoKzsmzHYYKdWyvIrpxborT0pn0MA==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'

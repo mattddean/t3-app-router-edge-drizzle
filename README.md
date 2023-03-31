@@ -6,7 +6,7 @@ This is meant to be a place of hacking and learning. We're still learning how to
 
 If you encounter an error (you will), please create an Issue so that we can fix bugs and learn together.
 
-**This is not intended for production.** For a production-ready full-stack application, use much more most stable [create-t3-app](https://github.com/t3-oss/create-t3-app).
+**This is not intended for production.** For a production-ready full-stack application, use the much more stable [create-t3-app](https://github.com/t3-oss/create-t3-app).
 
 This project is not affiliated with create-t3-app.
 
@@ -17,14 +17,14 @@ This project is not affiliated with create-t3-app.
 This project represents the copy-pasting of work and ideas from a lot of really smart people. I think it's useful to see them all together in a working prototype.
 
 - Edge runtime for all pages and routes.
-- Type-safe SQL and schema management with drizzle-orm
+- Type-safe SQL and schema management with drizzle-orm.
   - While create-t3-app uses Prisma, Prisma can't run on the Edge runtime.
-- Type-safe API with tRPC
+- Type-safe API with tRPC.
   - App Router setup is copied from [here](https://github.com/trpc/next-13).
   - The installed tRPC version is currently locked to the experimental App Router tRPC client in `./src/trpc/@trpc`, which formats the react-query query keys in a specific way that changed in later versions of tRPC. If you upgrade tRPC, hydration will stop working.
-- Owned Authentication with Auth.js
+- Owned Authentication with Auth.js.
   - create-t3-app uses NextAuth, which doesn't support the Edge runtime. This project uses NextAuth's successor, Auth.js, which does. Since Auth.js hasn't built support for Next.js yet, their [SolidStart implementation](https://github.com/nextauthjs/next-auth/tree/36ad964cf9aec4561dd4850c0f42b7889aa9a7db/packages/frameworks-solid-start/src) is copied and slightly modified.
-- Styling with [Tailwind](https://tailwindcss.com/)
+- Styling with [Tailwind](https://tailwindcss.com/).
   - It's just CSS, so it works just fine in the App Router.
 - React components and layout from [shadcn/ui](https://github.com/shadcn/ui)
   - They're also just CSS and Radix, so they work just fine in the App Router.
@@ -40,14 +40,14 @@ There are a few options that Server Components + tRPC + React Query afford us. T
 
 ## Getting Started
 
-1. Run some commands
+1. Run some commands.
 
    ```sh
    pnpm i
    cp .env.example .env
    ```
 
-2. Fill in .env
+2. Fill in [.env](./.env).
 
 3. Push your schema changes to a new PlanetScale database. Don't use this command on an existing database that you care about. It's destructive (and in beta).
 
@@ -55,7 +55,7 @@ There are a few options that Server Components + tRPC + React Query afford us. T
    pnpm db:push
    ```
 
-4. Start the Next.js dev server
+4. Start the Next.js dev server.
 
    ```sh
    pnpm dev

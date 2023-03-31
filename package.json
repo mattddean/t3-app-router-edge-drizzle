@@ -38,7 +38,7 @@
     "clsx": "^1.2.1",
     "cookie": "^0.5.0",
     "date-fns": "^2.29.3",
-    "drizzle-orm": "0.23.2",
+    "drizzle-orm": "0.23.2-ec4bb7f",
     "lucide-react": "^0.109.0",
     "next": "^13.2.4",
     "next-themes": "^0.2.1",

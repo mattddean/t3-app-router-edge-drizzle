@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { type FC } from "react";
 import { signIn } from "~/auth/client";
 import { GithubIcon, GoogleIcon } from "./icons";
 import { Button } from "./ui/button";

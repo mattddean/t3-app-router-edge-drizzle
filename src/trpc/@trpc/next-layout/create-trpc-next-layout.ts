@@ -1,14 +1,14 @@
 import type { DehydratedState } from "@tanstack/react-query";
 import {
-  AnyProcedure,
-  AnyQueryProcedure,
-  AnyRouter,
-  DataTransformer,
-  inferProcedureInput,
-  inferProcedureOutput,
-  inferRouterContext,
-  MaybePromise,
-  ProcedureRouterRecord,
+  type AnyProcedure,
+  type AnyQueryProcedure,
+  type AnyRouter,
+  type DataTransformer,
+  type inferProcedureInput,
+  type inferProcedureOutput,
+  type inferRouterContext,
+  type MaybePromise,
+  type ProcedureRouterRecord,
 } from "@trpc/server";
 import { createRecursiveProxy } from "@trpc/server/shared";
 import { getRequestStorage } from "./local-storage";
@@ -67,6 +67,7 @@ export function createTRPCNextLayout<TRouter extends AnyRouter>(
       };
     }>();
     requestStorage._trpc = requestStorage._trpc ?? {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       cache: Object.create(null),
       context: opts.createContext(),
       queryClient: new QueryClient({
@@ -80,13 +81,16 @@ export function createTRPCNextLayout<TRouter extends AnyRouter>(
     return requestStorage._trpc;
   }
   const transformer = opts.transformer ?? {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     serialize: (v) => v,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     deserialize: (v) => v,
   };
   return createRecursiveProxy(async (callOpts) => {
     const path = [...callOpts.path];
     const lastPart = path.pop();
     const state = getState();
+    // eslint-disable-next-line @typescript-eslint/await-thenable
     const ctx = await state.context;
     const { queryClient } = state;
 
