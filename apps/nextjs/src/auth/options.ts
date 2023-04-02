@@ -1,12 +1,13 @@
+import { createDrizzleAdapter } from "@acme/authjs-adapter-drizzle";
 import GithubProvider from "@auth/core/providers/github";
-import GoogleProvider from "@auth/core/providers/google";
 import { db } from "~/db/drizzle-db";
-import { createDrizzleAdapter } from "./adapters/drizzle-orm";
+import GoogleProvider from "@auth/core/providers/google";
+import { accounts, sessions, users, verificationTokens } from "~/db/schema";
 import { type SolidAuthConfig } from "./server";
-
+   
 export const authConfig: SolidAuthConfig = {
   // Configure one or more authentication providers
-  adapter: createDrizzleAdapter(db),
+  adapter: createDrizzleAdapter(db, { accounts, sessions, users, verificationTokens }),
   providers: [
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore growing pains

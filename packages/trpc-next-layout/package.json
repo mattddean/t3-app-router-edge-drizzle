@@ -1,0 +1,23 @@
+{
+  "name": "@acme/trpc-next-layout",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tanstack/query-core": "4.14.5",
+    "@tanstack/react-query": "4.14.5",
+    "@trpc/server": "10.0.0-rc.1",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.8.5",
+    "@types/react": "18.0.21"
+  }
+}

@@ -1,8 +1,8 @@
 "use client";
 
-import { Hydrate, type DehydratedState } from "@tanstack/react-query";
-import { type DataTransformer } from "@trpc/server";
-import { useMemo } from "react";
+import { DehydratedState, Hydrate } from "@tanstack/react-query";
+import { DataTransformer } from "@trpc/server";
+import React, { useMemo } from "react";
 
 export function createHydrateClient(opts: { transformer?: DataTransformer }) {
   return function HydrateClient(props: { children: React.ReactNode; state: DehydratedState }) {

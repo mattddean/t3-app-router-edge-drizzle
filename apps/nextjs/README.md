@@ -28,6 +28,7 @@ This project represents the copy-pasting of work and ideas from a lot of really 
   - It's just CSS, so it works just fine in the App Router.
 - React components and layout from [shadcn/ui](https://github.com/shadcn/ui)
   - They're also just CSS and Radix, so they work just fine in the App Router.
+- Monorepo to manage some local helper packages based on [create-t3-turbo](https://github.com/t3-oss/create-t3-turbo/tree/1018bd7fcf15df3ac99e4b5f8e13bcc715e43213).
 
 ## Data Fetching
 

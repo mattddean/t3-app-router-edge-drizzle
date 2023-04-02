@@ -1,2 +1,2 @@
-/next.config.js
-/src/server/env.js
+/apps/nextjs/next.config.mjs
+/.eslintrc.cjs

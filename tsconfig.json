@@ -15,17 +15,7 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "noUncheckedIndexedAccess": true,
-    "baseUrl": ".",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "~/*": ["./src/*"]
-    }
+    "noUncheckedIndexedAccess": true
   },
-  "include": [".eslintrc.cjs", "next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [".eslintrc.cjs", "prettier.config.cjs"]
 }

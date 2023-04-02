@@ -10,6 +10,7 @@
   ],
   "ignoreWords": [
     "authed",
+    "authjs",
     "ciphertext",
     "clsx",
     "datetime",
@@ -17,6 +18,7 @@
     "hasn",
     "kysely",
     "lucide",
+    "manypkg",
     "nextauth",
     "nextjs",
     "pkce",

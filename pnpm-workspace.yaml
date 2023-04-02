@@ -1,0 +1,4 @@
+packages:
+  - apps/nextjs
+  - packages/trpc-next-layout
+  - packages/authjs-adapter-drizzle

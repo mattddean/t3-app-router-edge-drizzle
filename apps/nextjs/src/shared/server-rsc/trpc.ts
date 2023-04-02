@@ -1,8 +1,8 @@
+import { createTRPCNextLayout } from "@acme/trpc-next-layout";
 import { cookies } from "next/headers";
 import superjson from "superjson";
 import { createContext } from "~/server/context";
 import { appRouter } from "~/server/routers/_app";
-import { createTRPCNextLayout } from "~/trpc/@trpc/next-layout";
 import { createGetUser } from "./get-user";
 
 export const rsc = createTRPCNextLayout({

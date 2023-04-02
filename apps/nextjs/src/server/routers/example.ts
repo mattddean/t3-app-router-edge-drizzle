@@ -58,7 +58,8 @@ export const exampleRouter = router({
     .query(async ({ input }) => {
       const limit = input.limit ?? 50;
 
-      const countRows = await db.select({ files_count: sql<number>`count(${posts.id})`.as("files_count") }).from(posts);
+      // @ts-ignore TODO: fix this
+      const countRows = await db.select({ files_count: sql<number>`count(${posts.id})` }).from(posts);
       const totalCount = countRows[0]?.files_count;
       if (totalCount === undefined) throw new Error("Failed to query total file count");
 

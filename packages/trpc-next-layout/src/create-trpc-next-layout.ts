@@ -1,3 +1,4 @@
+import { dehydrate, QueryClient } from "@tanstack/query-core";
 import type { DehydratedState } from "@tanstack/react-query";
 import {
   type AnyProcedure,
@@ -12,8 +13,6 @@ import {
 } from "@trpc/server";
 import { createRecursiveProxy } from "@trpc/server/shared";
 import { getRequestStorage } from "./local-storage";
-
-import { dehydrate, QueryClient } from "@tanstack/query-core";
 
 interface CreateTRPCNextLayoutOptions<TRouter extends AnyRouter> {
   router: TRouter;

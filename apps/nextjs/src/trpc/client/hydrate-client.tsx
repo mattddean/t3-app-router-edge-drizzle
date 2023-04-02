@@ -1,7 +1,7 @@
 "use client";
 
+import { createHydrateClient } from "@acme/trpc-next-layout";
 import superjson from "superjson";
-import { createHydrateClient } from "~/trpc/@trpc/next-layout";
 
 export const HydrateClient = createHydrateClient({
   transformer: superjson,

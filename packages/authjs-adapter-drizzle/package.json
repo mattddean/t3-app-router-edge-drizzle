@@ -1,0 +1,19 @@
+{
+  "name": "@acme/authjs-adapter-drizzle",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./index.ts",
+  "types": "./index.ts",
+  "scripts": {
+    "clean": "rm -rf .turbo node_modules",
+    "lint": "eslint .",
+    "lint:fix": "pnpm lint --fix",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@auth/core": "0.5.1",
+    "@paralleldrive/cuid2": "^2.2.0",
+    "drizzle-kit": "0.17.1-5df459e",
+    "drizzle-orm": "0.23.4"
+  }
+}
