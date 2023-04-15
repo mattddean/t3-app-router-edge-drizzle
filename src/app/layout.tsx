@@ -35,6 +35,7 @@ export default async function RootLayout(props: PropsWithChildren) {
     return firstLetterOfUsername?.toUpperCase();
   })();
 
+  // suppressHydrationWarning is required to avoid a console warning during development when using next-themes https://github.com/pacocoursey/next-themes#with-app
   return (
     <html lang="en" suppressHydrationWarning>
       <ClientProvider>
