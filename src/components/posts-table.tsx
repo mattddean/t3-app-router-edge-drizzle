@@ -85,7 +85,7 @@ export const PostsTable: FC<Props> = ({ pageSizes, initialPageSize }) => {
 
   const dataQuery = api.example.getInfinitePosts.useInfiniteQuery(
     { limit: fetchDataOptions.pageSize },
-    { getNextPageParam: (lastPage) => lastPage.nextCursor, refetchOnWindowFocus: false },
+    { getNextPageParam: (lastPage) => lastPage.nextCursor, refetchOnWindowFocus: false, keepPreviousData: true },
   );
 
   const onPaginationChange: OnChangeFn<PaginationState> = (paginationState) => {
@@ -127,7 +127,6 @@ export const PostsTable: FC<Props> = ({ pageSizes, initialPageSize }) => {
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
     // getPaginationRowModel: getPaginationRowModel(), // If only doing manual pagination, you don't need this
-    debugTable: true,
   });
 
   return (
