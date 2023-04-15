@@ -36,7 +36,7 @@ export default async function RootLayout(props: PropsWithChildren) {
   })();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <ClientProvider>
         <body
           className={cn(
