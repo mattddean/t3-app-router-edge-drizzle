@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FC, type FormEventHandler } from "react";
+import { useState, type FC } from "react";
 import { Button } from "../../../components/ui/button";
 import { Input } from "../../../components/ui/input";
 import { Label } from "../../../components/ui/label";
@@ -11,15 +11,16 @@ const CreatePostForm: FC = () => {
   const [postText, setPostText] = useState("");
   const createPostMutation = api.example.createPost.useMutation();
 
-  const canSubmitChangePassword = postTitle && postText;
-  const createPost: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    if (!canSubmitChangePassword) throw new Error("Invalid passwords input"); // the ui should have prevented this
-    void createPostMutation.mutateAsync({ title: postTitle, text: postText });
-  };
-
+  const canCreatePost = postTitle && postText;
   return (
-    <form className="flex w-full flex-col gap-4" onSubmit={createPost}>
+    <form
+      className="flex w-full flex-col gap-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        if (!canCreatePost) throw new Error("invalid input"); // the ui should have prevented this
+        void createPostMutation.mutateAsync({ title: postTitle, text: postText });
+      }}
+    >
       <div className="flex justify-between">
         <div className="flex w-full flex-col gap-2">
           <Label htmlFor="password">Title</Label>
@@ -51,7 +52,7 @@ const CreatePostForm: FC = () => {
       </div>
 
       <div className="flex justify-end">
-        <Button disabled={!canSubmitChangePassword}>Post Publicly</Button>
+        <Button disabled={!canCreatePost}>Post Publicly</Button>
       </div>
     </form>
   );
