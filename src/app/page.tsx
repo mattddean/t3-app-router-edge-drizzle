@@ -13,13 +13,13 @@ export const metadata = {
 
 /* @ts-expect-error Async Server Component */
 const Home: FC = async () => {
-  const pageSizes: [number, number, number] = [10, 25, 50];
+  const pageSizes: [number, number, number, number] = [5, 10, 25, 50];
   const initialPageSize = pageSizes[0];
 
-  // Fetch the first page of data that PostsTable will look for so that it
-  // can be dehydrated, passed to the client, and instantly retrieved.
   const [user] = await Promise.all([
     rsc.whoami.fetch(),
+    // Fetch the first page of data that PostsTable will look for so that it
+    // can be dehydrated, passed to the client, and instantly retrieved.
     rsc.example.getInfinitePosts.fetchInfinite({ limit: initialPageSize }),
   ]);
 
