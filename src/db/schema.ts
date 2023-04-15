@@ -85,6 +85,6 @@ export const posts = mysqlTable(
     updated_at: timestamp("updated_at").notNull().defaultNow().onUpdateNow(),
   },
   (post) => ({
-    userIdIndex: uniqueIndex("posts__user_id__idx").on(post.user_id),
+    userIdIndex: index("posts__user_id__idx").on(post.user_id),
   }),
 );
