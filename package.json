@@ -2,6 +2,7 @@
   "name": "t3-app-router-edge-drizzle",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@8.2.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -26,13 +27,13 @@
     "@radix-ui/react-tooltip": "^1.0.5",
     "@tailwindcss/line-clamp": "^0.4.2",
     "@tailwindcss/typography": "^0.5.9",
-    "@tanstack/query-core": "4.14.5",
-    "@tanstack/react-query": "4.14.5",
-    "@tanstack/react-query-devtools": "4.14.5",
+    "@tanstack/query-core": "4.29.1",
+    "@tanstack/react-query": "4.29.1",
+    "@tanstack/react-query-devtools": "4.29.1",
     "@tanstack/react-table": "^8.7.9",
-    "@trpc/client": "10.0.0-rc.1",
-    "@trpc/react-query": "10.0.0-rc.1",
-    "@trpc/server": "10.0.0-rc.1",
+    "@trpc/client": "10.20.0",
+    "@trpc/react-query": "10.20.0",
+    "@trpc/server": "10.20.0",
     "buffer": "^6.0.3",
     "class-variance-authority-ts5-fix": "^0.4.2",
     "clsx": "^1.2.1",
@@ -40,7 +41,7 @@
     "date-fns": "^2.29.3",
     "drizzle-orm": "0.23.2-ec4bb7f",
     "lucide-react": "^0.109.0",
-    "next": "^13.2.4",
+    "next": "^13.3.0",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
@@ -74,7 +75,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@tanstack/react-query@4.14.5": "patches/@tanstack__react-query@4.14.5.patch"
+      "@tanstack/react-query@4.29.1": "patches/@tanstack__react-query@4.29.1.patch"
     }
   }
 }

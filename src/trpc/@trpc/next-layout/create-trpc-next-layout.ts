@@ -52,8 +52,16 @@ type CreateTRPCNextLayout<TRouter extends AnyRouter> = DecoratedProcedureRecord<
   dehydrate(): Promise<DehydratedState>;
 };
 
-function getQueryKey(path: string[], input: unknown) {
-  return input === undefined ? [path] : [path, input];
+function getQueryKey(path: string[], input: unknown, isFetchInfinite?: boolean) {
+  return input === undefined
+    ? [path, { type: isFetchInfinite ? "infinite" : "query" }]
+    : [
+        path,
+        {
+          input: { ...input },
+          type: isFetchInfinite ? "infinite" : "query",
+        },
+      ];
 }
 
 export function createTRPCNextLayout<TRouter extends AnyRouter>(
@@ -114,7 +122,7 @@ export function createTRPCNextLayout<TRouter extends AnyRouter>(
 
     const pathStr = path.join(".");
     const input = callOpts.args[0];
-    const queryKey = getQueryKey(path, input);
+    const queryKey = getQueryKey(path, input, lastPart === "fetchInfinite");
 
     if (lastPart === "fetchInfinite") {
       return queryClient.fetchInfiniteQuery(queryKey, () => caller.query(pathStr, input));
