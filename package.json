@@ -77,5 +77,8 @@
     "patchedDependencies": {
       "@tanstack/react-query@4.29.1": "patches/@tanstack__react-query@4.29.1.patch"
     }
+  },
+  "volta": {
+    "node": "18.15.0"
   }
 }
