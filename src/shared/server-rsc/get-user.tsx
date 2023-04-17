@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm/expressions";
 import type { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
-import type { ReadonlyRequestCookies } from "next/dist/server/app-render";
+import type { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 import { db } from "~/db/drizzle-db";
 import { sessions, users } from "../../db/schema";
 
