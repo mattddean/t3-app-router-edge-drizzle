@@ -1,7 +1,6 @@
 /**
  * This is an example router, you can delete this file and then update `../pages/api/trpc/[trpc].tsx`
  */
-import { createId } from "@paralleldrive/cuid2";
 import { TRPCError } from "@trpc/server";
 import { sql } from "drizzle-orm";
 import { eq, gte } from "drizzle-orm/expressions";
@@ -23,9 +22,9 @@ export const exampleRouter = router({
       if (!userEmail) throw new TRPCError({ code: "INTERNAL_SERVER_ERROR" });
 
       await db.insert(posts).values({
-        id: createId(),
+        id: crypto.randomUUID(),
         user_id: ctx.user.id,
-        slug: createId(),
+        slug: crypto.randomUUID(),
         title: input.title,
         text: input.text,
       });

@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@auth/core": "0.5.1",
-    "@paralleldrive/cuid2": "^2.2.0",
     "@planetscale/database": "^1.6.0",
     "@radix-ui/react-avatar": "^1.0.2",
     "@radix-ui/react-dialog": "^1.0.3",

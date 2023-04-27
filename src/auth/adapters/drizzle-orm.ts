@@ -1,5 +1,4 @@
 import type { Adapter } from "@auth/core/adapters";
-import { createId } from "@paralleldrive/cuid2";
 import { and, eq } from "drizzle-orm/expressions";
 import type { PlanetScaleDatabase } from "drizzle-orm/planetscale-serverless";
 import { accounts, sessions, users, verificationTokens } from "../../db/schema";
@@ -8,7 +7,7 @@ export function createDrizzleAdapter(db: PlanetScaleDatabase): Adapter {
   return {
     async createUser(userData) {
       await db.insert(users).values({
-        id: createId(),
+        id: crypto.randomUUID(),
         email: userData.email,
         emailVerified: userData.emailVerified,
         name: userData.name,
@@ -52,7 +51,7 @@ export function createDrizzleAdapter(db: PlanetScaleDatabase): Adapter {
     },
     async linkAccount(account) {
       await db.insert(accounts).values({
-        id: createId(),
+        id: crypto.randomUUID(),
         provider: account.provider,
         providerAccountId: account.providerAccountId,
         type: account.type,
@@ -74,7 +73,7 @@ export function createDrizzleAdapter(db: PlanetScaleDatabase): Adapter {
     },
     async createSession(data) {
       await db.insert(sessions).values({
-        id: createId(),
+        id: crypto.randomUUID(),
         expires: data.expires,
         sessionToken: data.sessionToken,
         userId: data.userId,
