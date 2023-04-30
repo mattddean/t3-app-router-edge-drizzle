@@ -26,6 +26,7 @@ export function createGetUser(cookies: RequestCookies | ReadonlyRequestCookies) 
       .select({ user_id: users.id, user_name: users.name, user_email: users.email })
       .from(sessions)
       .innerJoin(users, eq(users.id, sessions.userId))
+      .where(eq(sessions.sessionToken, sessionToken))
       .limit(1);
     const session = rows[0];
     if (!session) return null;
