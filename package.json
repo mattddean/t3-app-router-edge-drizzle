@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@auth/core": "0.5.1",
+    "@noble/hashes": "^1.3.0",
+    "@paralleldrive/cuid2": "^2.2.0",
     "@planetscale/database": "^1.6.0",
     "@radix-ui/react-avatar": "^1.0.2",
     "@radix-ui/react-dialog": "^1.0.3",
@@ -74,7 +76,8 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "@tanstack/react-query@4.29.1": "patches/@tanstack__react-query@4.29.1.patch"
+      "@tanstack/react-query@4.29.1": "patches/@tanstack__react-query@4.29.1.patch",
+      "@noble/hashes@1.3.0": "patches/@noble__hashes@1.3.0.patch"
     }
   },
   "volta": {
