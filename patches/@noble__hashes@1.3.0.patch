@@ -1,0 +1,33 @@
+diff --git a/cryptoNode.js b/cryptoNode.js
+index 939525de1e4f88203cfa6103eac0f14b611dcbb3..3038d91f0080fe5133d1baf6d3f1c9030d758f07 100644
+--- a/cryptoNode.js
++++ b/cryptoNode.js
+@@ -1,6 +1,5 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.crypto = void 0;
+-const nc = require("node:crypto");
+-exports.crypto = nc && typeof nc === 'object' && 'webcrypto' in nc ? nc.webcrypto : undefined;
++exports.crypto = typeof globalThis === 'object' && 'crypto' in globalThis ? globalThis.crypto : undefined;
+ //# sourceMappingURL=cryptoNode.js.map
+\ No newline at end of file
+diff --git a/esm/cryptoNode.js b/esm/cryptoNode.js
+index 4bac77ad987b53a5fd5384ec7dad2bd193693776..a0dac2b27013b3d612729d7526491cc2d6f5f9a0 100644
+--- a/esm/cryptoNode.js
++++ b/esm/cryptoNode.js
+@@ -1,3 +1,2 @@
+-import * as nc from 'node:crypto';
+-export const crypto = nc && typeof nc === 'object' && 'webcrypto' in nc ? nc.webcrypto : undefined;
++export const crypto = typeof globalThis === 'object' && 'crypto' in globalThis ? globalThis.crypto : undefined;
+ //# sourceMappingURL=cryptoNode.js.map
+\ No newline at end of file
+diff --git a/src/cryptoNode.ts b/src/cryptoNode.ts
+index 65d0853452ba39bf9a992d8dd078d5385e7cc66c..9732af47a8db9294faf7fd77003773caca03b617 100644
+--- a/src/cryptoNode.ts
++++ b/src/cryptoNode.ts
+@@ -1,3 +1,3 @@
+-import * as nc from 'node:crypto';
++declare const globalThis: Record<string, any> | undefined;
+ export const crypto =
+-  nc && typeof nc === 'object' && 'webcrypto' in nc ? (nc.webcrypto as any) : undefined;
++  typeof globalThis === 'object' && 'crypto' in globalThis ? globalThis.crypto : undefined;

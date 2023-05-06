@@ -5,7 +5,8 @@
   "dictionaries": [],
   "words": [
     "codegen",
-    "middlewares"
+    "middlewares",
+    "paralleldrive"
   ],
   "ignoreWords": [
     "authed",
